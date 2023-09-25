@@ -1,0 +1,380 @@
+{
+ "nbformat": 4,
+ "nbformat_minor": 0,
+ "metadata": {
+  "colab": {
+   "name": "Dash Chatbot Colab Demo.ipynb",
+   "provenance": [],
+   "collapsed_sections": [],
+   "authorship_tag": "ABX9TyM4OlVzQCyJ+CJavl+2kDkU"
+  },
+  "kernelspec": {
+   "name": "python3",
+   "language": "python",
+   "display_name": "Python 3 (ipykernel)"
+  },
+  "accelerator": "GPU"
+ },
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "id": "8n6CYTIja4hq",
+    "colab_type": "text"
+   },
+   "source": [
+    "To start this Jupyter Dash app, please run all the cells below. Then, click on the **temporary** URL at the end of the last cell to open the app."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "metadata": {
+    "id": "pPEkJcCxSqxs",
+    "colab_type": "code",
+    "colab": {},
+    "ExecuteTime": {
+     "end_time": "2023-09-24T22:07:44.302097Z",
+     "start_time": "2023-09-24T22:07:37.317698100Z"
+    }
+   },
+   "source": [
+    "!pip install -q jupyter-dash==0.3.0rc1 dash-bootstrap-components transformers"
+   ],
+   "execution_count": 1,
+   "outputs": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Looking in indexes: https://pypi.org/simple, https://pypi.ngc.nvidia.com\n",
+      "Collecting babel\n",
+      "  Downloading Babel-2.12.1-py3-none-any.whl (10.1 MB)\n",
+      "     ---------------------------------------- 10.1/10.1 MB 9.7 MB/s eta 0:00:00\n",
+      "Collecting pytz>=2015.7 (from babel)\n",
+      "  Obtaining dependency information for pytz>=2015.7 from https://files.pythonhosted.org/packages/32/4d/aaf7eff5deb402fd9a24a1449a8119f00d74ae9c2efa79f8ef9994261fc2/pytz-2023.3.post1-py2.py3-none-any.whl.metadata\n",
+      "  Downloading pytz-2023.3.post1-py2.py3-none-any.whl.metadata (22 kB)\n",
+      "Downloading pytz-2023.3.post1-py2.py3-none-any.whl (502 kB)\n",
+      "   ---------------------------------------- 502.5/502.5 kB 7.9 MB/s eta 0:00:00\n",
+      "Installing collected packages: pytz, babel\n",
+      "Successfully installed babel-2.12.1 pytz-2023.3.post1\n",
+      "Looking in indexes: https://pypi.org/simple, https://pypi.ngc.nvidia.com\n",
+      "Requirement already satisfied: python-dateutil in f:\\dash-sample-apps\\venv37\\lib\\site-packages (2.8.2)\n",
+      "Requirement already satisfied: six>=1.5 in f:\\dash-sample-apps\\venv37\\lib\\site-packages (from python-dateutil) (1.15.0)\n",
+      "Looking in indexes: https://pypi.org/simple, https://pypi.ngc.nvidia.com\n",
+      "Collecting flask-moment\n",
+      "  Downloading Flask_Moment-1.0.5-py3-none-any.whl (6.1 kB)\n",
+      "Requirement already satisfied: Flask in f:\\dash-sample-apps\\venv37\\lib\\site-packages (from flask-moment) (1.1.2)\n",
+      "Requirement already satisfied: packaging>=14.1 in f:\\dash-sample-apps\\venv37\\lib\\site-packages (from flask-moment) (20.4)\n",
+      "Requirement already satisfied: pyparsing>=2.0.2 in f:\\dash-sample-apps\\venv37\\lib\\site-packages (from packaging>=14.1->flask-moment) (2.4.7)\n",
+      "Requirement already satisfied: six in f:\\dash-sample-apps\\venv37\\lib\\site-packages (from packaging>=14.1->flask-moment) (1.15.0)\n",
+      "Requirement already satisfied: Werkzeug>=0.15 in f:\\dash-sample-apps\\venv37\\lib\\site-packages (from Flask->flask-moment) (1.0.1)\n",
+      "Requirement already satisfied: Jinja2>=2.10.1 in f:\\dash-sample-apps\\venv37\\lib\\site-packages (from Flask->flask-moment) (3.1.2)\n",
+      "Requirement already satisfied: itsdangerous>=0.24 in f:\\dash-sample-apps\\venv37\\lib\\site-packages (from Flask->flask-moment) (1.1.0)\n",
+      "Requirement already satisfied: click>=5.1 in f:\\dash-sample-apps\\venv37\\lib\\site-packages (from Flask->flask-moment) (7.1.2)\n",
+      "Requirement already satisfied: MarkupSafe>=2.0 in f:\\dash-sample-apps\\venv37\\lib\\site-packages (from Jinja2>=2.10.1->Flask->flask-moment) (2.1.3)\n",
+      "Installing collected packages: flask-moment\n",
+      "Successfully installed flask-moment-1.0.5\n",
+      "Looking in indexes: https://pypi.org/simple, https://pypi.ngc.nvidia.com\n",
+      "Collecting flask-wtf\n",
+      "  Downloading Flask_WTF-1.1.1-py3-none-any.whl (12 kB)\n",
+      "Requirement already satisfied: Flask in f:\\dash-sample-apps\\venv37\\lib\\site-packages (from flask-wtf) (1.1.2)\n",
+      "Collecting WTForms (from flask-wtf)\n",
+      "  Downloading WTForms-3.0.1-py3-none-any.whl (136 kB)\n",
+      "     -------------------------------------- 136.5/136.5 kB 1.6 MB/s eta 0:00:00\n",
+      "Requirement already satisfied: itsdangerous in f:\\dash-sample-apps\\venv37\\lib\\site-packages (from flask-wtf) (1.1.0)\n",
+      "Requirement already satisfied: Werkzeug>=0.15 in f:\\dash-sample-apps\\venv37\\lib\\site-packages (from Flask->flask-wtf) (1.0.1)\n",
+      "Requirement already satisfied: Jinja2>=2.10.1 in f:\\dash-sample-apps\\venv37\\lib\\site-packages (from Flask->flask-wtf) (3.1.2)\n",
+      "Requirement already satisfied: click>=5.1 in f:\\dash-sample-apps\\venv37\\lib\\site-packages (from Flask->flask-wtf) (7.1.2)\n",
+      "Requirement already satisfied: MarkupSafe in f:\\dash-sample-apps\\venv37\\lib\\site-packages (from WTForms->flask-wtf) (2.1.3)\n",
+      "Installing collected packages: WTForms, flask-wtf\n",
+      "Successfully installed WTForms-3.0.1 flask-wtf-1.1.1\n",
+      "Looking in indexes: https://pypi.org/simple, https://pypi.ngc.nvidia.com\n",
+      "Collecting flask_sqlalchemy\n",
+      "  Obtaining dependency information for flask_sqlalchemy from https://files.pythonhosted.org/packages/d8/1d/c3c5afdaebd5d5f82d2c25762f5356416bd7bc109a550c79247134e48ca3/flask_sqlalchemy-3.0.5-py3-none-any.whl.metadata\n",
+      "  Downloading flask_sqlalchemy-3.0.5-py3-none-any.whl.metadata (3.3 kB)\n",
+      "Collecting flask>=2.2.5 (from flask_sqlalchemy)\n",
+      "  Downloading Flask-2.2.5-py3-none-any.whl (101 kB)\n",
+      "     -------------------------------------- 101.8/101.8 kB 1.9 MB/s eta 0:00:00\n",
+      "Collecting sqlalchemy>=1.4.18 (from flask_sqlalchemy)\n",
+      "  Obtaining dependency information for sqlalchemy>=1.4.18 from https://files.pythonhosted.org/packages/67/9b/6fffaeabe9b41ee492c4eadaad1ba21d128f40eaecd83c54ffd9e2d089ed/SQLAlchemy-2.0.21-cp37-cp37m-win_amd64.whl.metadata\n",
+      "  Downloading SQLAlchemy-2.0.21-cp37-cp37m-win_amd64.whl.metadata (9.7 kB)\n",
+      "Collecting Werkzeug>=2.2.2 (from flask>=2.2.5->flask_sqlalchemy)\n",
+      "  Downloading Werkzeug-2.2.3-py3-none-any.whl (233 kB)\n",
+      "     -------------------------------------- 233.6/233.6 kB 7.2 MB/s eta 0:00:00\n",
+      "Requirement already satisfied: Jinja2>=3.0 in f:\\dash-sample-apps\\venv37\\lib\\site-packages (from flask>=2.2.5->flask_sqlalchemy) (3.1.2)\n",
+      "Collecting itsdangerous>=2.0 (from flask>=2.2.5->flask_sqlalchemy)\n",
+      "  Downloading itsdangerous-2.1.2-py3-none-any.whl (15 kB)\n",
+      "Collecting click>=8.0 (from flask>=2.2.5->flask_sqlalchemy)\n",
+      "  Obtaining dependency information for click>=8.0 from https://files.pythonhosted.org/packages/00/2e/d53fa4befbf2cfa713304affc7ca780ce4fc1fd8710527771b58311a3229/click-8.1.7-py3-none-any.whl.metadata\n",
+      "  Downloading click-8.1.7-py3-none-any.whl.metadata (3.0 kB)\n",
+      "Requirement already satisfied: importlib-metadata>=3.6.0 in f:\\dash-sample-apps\\venv37\\lib\\site-packages (from flask>=2.2.5->flask_sqlalchemy) (6.7.0)\n",
+      "Requirement already satisfied: typing-extensions>=4.2.0 in f:\\dash-sample-apps\\venv37\\lib\\site-packages (from sqlalchemy>=1.4.18->flask_sqlalchemy) (4.4.0)\n",
+      "Collecting greenlet!=0.4.17 (from sqlalchemy>=1.4.18->flask_sqlalchemy)\n",
+      "  Downloading greenlet-2.0.2-cp37-cp37m-win_amd64.whl (192 kB)\n",
+      "     -------------------------------------- 192.4/192.4 kB 2.9 MB/s eta 0:00:00\n",
+      "Requirement already satisfied: colorama in f:\\dash-sample-apps\\venv37\\lib\\site-packages (from click>=8.0->flask>=2.2.5->flask_sqlalchemy) (0.4.6)\n",
+      "Requirement already satisfied: zipp>=0.5 in f:\\dash-sample-apps\\venv37\\lib\\site-packages (from importlib-metadata>=3.6.0->flask>=2.2.5->flask_sqlalchemy) (3.15.0)\n",
+      "Requirement already satisfied: MarkupSafe>=2.0 in f:\\dash-sample-apps\\venv37\\lib\\site-packages (from Jinja2>=3.0->flask>=2.2.5->flask_sqlalchemy) (2.1.3)\n",
+      "Downloading flask_sqlalchemy-3.0.5-py3-none-any.whl (24 kB)\n",
+      "Downloading SQLAlchemy-2.0.21-cp37-cp37m-win_amd64.whl (2.0 MB)\n",
+      "   ---------------------------------------- 2.0/2.0 MB 7.3 MB/s eta 0:00:00\n",
+      "Downloading click-8.1.7-py3-none-any.whl (97 kB)\n",
+      "   ---------------------------------------- 97.9/97.9 kB 5.5 MB/s eta 0:00:00\n",
+      "Installing collected packages: Werkzeug, itsdangerous, greenlet, sqlalchemy, click, flask, flask_sqlalchemy\n",
+      "  Attempting uninstall: Werkzeug\n",
+      "    Found existing installation: Werkzeug 1.0.1\n",
+      "    Uninstalling Werkzeug-1.0.1:\n",
+      "      Successfully uninstalled Werkzeug-1.0.1\n",
+      "  Attempting uninstall: itsdangerous\n",
+      "    Found existing installation: itsdangerous 1.1.0\n",
+      "    Uninstalling itsdangerous-1.1.0:\n",
+      "      Successfully uninstalled itsdangerous-1.1.0\n",
+      "  Attempting uninstall: click\n",
+      "    Found existing installation: click 7.1.2\n",
+      "    Uninstalling click-7.1.2:\n",
+      "      Successfully uninstalled click-7.1.2\n",
+      "  Attempting uninstall: flask\n",
+      "    Found existing installation: Flask 1.1.2\n",
+      "    Uninstalling Flask-1.1.2:\n",
+      "      Successfully uninstalled Flask-1.1.2\n",
+      "Successfully installed Werkzeug-2.2.3 click-8.1.7 flask-2.2.5 flask_sqlalchemy-3.0.5 greenlet-2.0.2 itsdangerous-2.1.2 sqlalchemy-2.0.21\n"
+     ]
+    }
+   ],
+   "source": [
+    "!pip install --upgrade babel\n",
+    "!pip install --upgrade python-dateutil\n",
+    "!pip install --upgrade flask-moment\n",
+    "!pip install --upgrade flask-wtf\n",
+    "!pip install --upgrade flask_sqlalchemy"
+   ],
+   "metadata": {
+    "collapsed": false,
+    "ExecuteTime": {
+     "end_time": "2023-09-24T22:16:31.773220100Z",
+     "start_time": "2023-09-24T22:15:51.163304400Z"
+    }
+   }
+  },
+  {
+   "cell_type": "code",
+   "metadata": {
+    "id": "wNQanZGJcJhx",
+    "colab_type": "code",
+    "colab": {},
+    "ExecuteTime": {
+     "end_time": "2023-09-24T22:16:36.156591800Z",
+     "start_time": "2023-09-24T22:16:35.296059300Z"
+    }
+   },
+   "source": [
+    "import time\n",
+    "\n",
+    "import dash\n",
+    "import dash_html_components as html\n",
+    "import dash_core_components as dcc\n",
+    "import dash_bootstrap_components as dbc\n",
+    "from dash.dependencies import Input, Output, State\n",
+    "from jupyter_dash import JupyterDash\n",
+    "from transformers import AutoModelWithLMHead, AutoTokenizer\n",
+    "import torch"
+   ],
+   "execution_count": 2,
+   "outputs": [
+    {
+     "ename": "ImportError",
+     "evalue": "cannot import name 'get_current_traceback' from 'werkzeug.debug.tbtools' (F:\\dash-sample-apps\\venv37\\lib\\site-packages\\werkzeug\\debug\\tbtools.py)",
+     "output_type": "error",
+     "traceback": [
+      "\u001B[1;31m---------------------------------------------------------------------------\u001B[0m",
+      "\u001B[1;31mImportError\u001B[0m                               Traceback (most recent call last)",
+      "\u001B[1;32mc:\\Windows\\Temp\\ipykernel_18324\\4065683151.py\u001B[0m in \u001B[0;36m<module>\u001B[1;34m\u001B[0m\n\u001B[0;32m      1\u001B[0m \u001B[1;32mimport\u001B[0m \u001B[0mtime\u001B[0m\u001B[1;33m\u001B[0m\u001B[1;33m\u001B[0m\u001B[0m\n\u001B[0;32m      2\u001B[0m \u001B[1;33m\u001B[0m\u001B[0m\n\u001B[1;32m----> 3\u001B[1;33m \u001B[1;32mimport\u001B[0m \u001B[0mdash\u001B[0m\u001B[1;33m\u001B[0m\u001B[1;33m\u001B[0m\u001B[0m\n\u001B[0m\u001B[0;32m      4\u001B[0m \u001B[1;32mimport\u001B[0m \u001B[0mdash_html_components\u001B[0m \u001B[1;32mas\u001B[0m \u001B[0mhtml\u001B[0m\u001B[1;33m\u001B[0m\u001B[1;33m\u001B[0m\u001B[0m\n\u001B[0;32m      5\u001B[0m \u001B[1;32mimport\u001B[0m \u001B[0mdash_core_components\u001B[0m \u001B[1;32mas\u001B[0m \u001B[0mdcc\u001B[0m\u001B[1;33m\u001B[0m\u001B[1;33m\u001B[0m\u001B[0m\n",
+      "\u001B[1;32mF:\\dash-sample-apps\\venv37\\lib\\site-packages\\dash\\__init__.py\u001B[0m in \u001B[0;36m<module>\u001B[1;34m\u001B[0m\n\u001B[1;32m----> 1\u001B[1;33m \u001B[1;32mfrom\u001B[0m \u001B[1;33m.\u001B[0m\u001B[0mdash\u001B[0m \u001B[1;32mimport\u001B[0m \u001B[0mDash\u001B[0m\u001B[1;33m,\u001B[0m \u001B[0mno_update\u001B[0m  \u001B[1;31m# noqa: F401\u001B[0m\u001B[1;33m\u001B[0m\u001B[1;33m\u001B[0m\u001B[0m\n\u001B[0m\u001B[0;32m      2\u001B[0m \u001B[1;32mfrom\u001B[0m \u001B[1;33m.\u001B[0m \u001B[1;32mimport\u001B[0m \u001B[0mdependencies\u001B[0m  \u001B[1;31m# noqa: F401\u001B[0m\u001B[1;33m\u001B[0m\u001B[1;33m\u001B[0m\u001B[0m\n\u001B[0;32m      3\u001B[0m \u001B[1;32mfrom\u001B[0m \u001B[1;33m.\u001B[0m \u001B[1;32mimport\u001B[0m \u001B[0mdevelopment\u001B[0m  \u001B[1;31m# noqa: F401\u001B[0m\u001B[1;33m\u001B[0m\u001B[1;33m\u001B[0m\u001B[0m\n\u001B[0;32m      4\u001B[0m \u001B[1;32mfrom\u001B[0m \u001B[1;33m.\u001B[0m \u001B[1;32mimport\u001B[0m \u001B[0mexceptions\u001B[0m  \u001B[1;31m# noqa: F401\u001B[0m\u001B[1;33m\u001B[0m\u001B[1;33m\u001B[0m\u001B[0m\n\u001B[0;32m      5\u001B[0m \u001B[1;32mfrom\u001B[0m \u001B[1;33m.\u001B[0m \u001B[1;32mimport\u001B[0m \u001B[0mresources\u001B[0m  \u001B[1;31m# noqa: F401\u001B[0m\u001B[1;33m\u001B[0m\u001B[1;33m\u001B[0m\u001B[0m\n",
+      "\u001B[1;32mF:\\dash-sample-apps\\venv37\\lib\\site-packages\\dash\\dash.py\u001B[0m in \u001B[0;36m<module>\u001B[1;34m\u001B[0m\n\u001B[0;32m     17\u001B[0m \u001B[1;32mimport\u001B[0m \u001B[0mflask\u001B[0m\u001B[1;33m\u001B[0m\u001B[1;33m\u001B[0m\u001B[0m\n\u001B[0;32m     18\u001B[0m \u001B[1;32mfrom\u001B[0m \u001B[0mflask_compress\u001B[0m \u001B[1;32mimport\u001B[0m \u001B[0mCompress\u001B[0m\u001B[1;33m\u001B[0m\u001B[1;33m\u001B[0m\u001B[0m\n\u001B[1;32m---> 19\u001B[1;33m \u001B[1;32mfrom\u001B[0m \u001B[0mwerkzeug\u001B[0m\u001B[1;33m.\u001B[0m\u001B[0mdebug\u001B[0m\u001B[1;33m.\u001B[0m\u001B[0mtbtools\u001B[0m \u001B[1;32mimport\u001B[0m \u001B[0mget_current_traceback\u001B[0m\u001B[1;33m\u001B[0m\u001B[1;33m\u001B[0m\u001B[0m\n\u001B[0m\u001B[0;32m     20\u001B[0m \u001B[1;33m\u001B[0m\u001B[0m\n\u001B[0;32m     21\u001B[0m \u001B[1;32mimport\u001B[0m \u001B[0mplotly\u001B[0m\u001B[1;33m\u001B[0m\u001B[1;33m\u001B[0m\u001B[0m\n",
+      "\u001B[1;31mImportError\u001B[0m: cannot import name 'get_current_traceback' from 'werkzeug.debug.tbtools' (F:\\dash-sample-apps\\venv37\\lib\\site-packages\\werkzeug\\debug\\tbtools.py)"
+     ]
+    }
+   ]
+  },
+  {
+   "cell_type": "code",
+   "metadata": {
+    "id": "vmYDDzbccMX0",
+    "colab_type": "code",
+    "colab": {}
+   },
+   "source": [
+    "device = \"cuda\" if torch.cuda.is_available() else \"cpu\"\n",
+    "print(f\"Device: {device}\")\n",
+    "\n",
+    "print(\"Start loading model...\")\n",
+    "name = \"microsoft/DialoGPT-large\"\n",
+    "tokenizer = AutoTokenizer.from_pretrained(name)\n",
+    "model = AutoModelWithLMHead.from_pretrained(name)\n",
+    "\n",
+    "# Switch to cuda, eval mode, and FP16 for faster inference\n",
+    "if device == \"cuda\":\n",
+    "    model = model.half()\n",
+    "model.to(device)\n",
+    "model.eval()\n",
+    "\n",
+    "print(\"Done.\")"
+   ],
+   "execution_count": null,
+   "outputs": []
+  },
+  {
+   "cell_type": "code",
+   "metadata": {
+    "id": "QXEtdeyicNuF",
+    "colab_type": "code",
+    "colab": {}
+   },
+   "source": [
+    "def textbox(text, box=\"other\"):\n",
+    "    style = {\n",
+    "        \"max-width\": \"55%\",\n",
+    "        \"width\": \"max-content\",\n",
+    "        \"padding\": \"10px 15px\",\n",
+    "        \"border-radius\": \"25px\",\n",
+    "    }\n",
+    "\n",
+    "    if box == \"self\":\n",
+    "        style[\"margin-left\"] = \"auto\"\n",
+    "        style[\"margin-right\"] = 0\n",
+    "\n",
+    "        color = \"primary\"\n",
+    "        inverse = True\n",
+    "\n",
+    "    elif box == \"other\":\n",
+    "        style[\"margin-left\"] = 0\n",
+    "        style[\"margin-right\"] = \"auto\"\n",
+    "\n",
+    "        color = \"light\"\n",
+    "        inverse = False\n",
+    "\n",
+    "    else:\n",
+    "        raise ValueError(\"Incorrect option for `box`.\")\n",
+    "\n",
+    "    return dbc.Card(text, style=style, body=True, color=color, inverse=inverse)"
+   ],
+   "execution_count": null,
+   "outputs": []
+  },
+  {
+   "cell_type": "code",
+   "metadata": {
+    "id": "vGiS2sIPcUIt",
+    "colab_type": "code",
+    "colab": {}
+   },
+   "source": [
+    "conversation = html.Div(\n",
+    "    style={\n",
+    "        \"width\": \"80%\",\n",
+    "        \"max-width\": \"800px\",\n",
+    "        \"height\": \"70vh\",\n",
+    "        \"margin\": \"auto\",\n",
+    "        \"overflow-y\": \"auto\",\n",
+    "    },\n",
+    "    id=\"display-conversation\",\n",
+    ")\n",
+    "\n",
+    "controls = dbc.InputGroup(\n",
+    "    style={\"width\": \"80%\", \"max-width\": \"800px\", \"margin\": \"auto\"},\n",
+    "    children=[\n",
+    "        dbc.Input(id=\"user-input\", placeholder=\"Write to the chatbot...\", type=\"text\"),\n",
+    "        dbc.InputGroupAddon(dbc.Button(\"Submit\", id=\"submit\"), addon_type=\"append\",),\n",
+    "    ],\n",
+    ")\n",
+    "\n",
+    "\n",
+    "# Define app\n",
+    "app = JupyterDash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])\n",
+    "server = app.server\n",
+    "\n",
+    "\n",
+    "# Define Layout\n",
+    "app.layout = dbc.Container(\n",
+    "    fluid=True,\n",
+    "    children=[\n",
+    "        html.H1(\"Dash Chatbot (with DialoGPT)\"),\n",
+    "        html.Hr(),\n",
+    "        dcc.Store(id=\"store-conversation\", data=\"\"),\n",
+    "        conversation,\n",
+    "        controls,\n",
+    "    ],\n",
+    ")"
+   ],
+   "execution_count": null,
+   "outputs": []
+  },
+  {
+   "cell_type": "code",
+   "metadata": {
+    "id": "9n6HT0CIcWJ9",
+    "colab_type": "code",
+    "colab": {}
+   },
+   "source": [
+    "@app.callback(\n",
+    "    Output(\"display-conversation\", \"children\"), [Input(\"store-conversation\", \"data\")]\n",
+    ")\n",
+    "def update_display(chat_history):\n",
+    "    return [\n",
+    "        textbox(x, box=\"self\") if i % 2 == 0 else textbox(x, box=\"other\")\n",
+    "        for i, x in enumerate(chat_history.split(tokenizer.eos_token)[:-1])\n",
+    "    ]\n",
+    "\n",
+    "\n",
+    "@app.callback(\n",
+    "    [Output(\"store-conversation\", \"data\"), Output(\"user-input\", \"value\")],\n",
+    "    [Input(\"submit\", \"n_clicks\"), Input(\"user-input\", \"n_submit\")],\n",
+    "    [State(\"user-input\", \"value\"), State(\"store-conversation\", \"data\")],\n",
+    ")\n",
+    "def run_chatbot(n_clicks, n_submit, user_input, chat_history):\n",
+    "    if n_clicks == 0:\n",
+    "        return \"\", \"\"\n",
+    "\n",
+    "    if user_input is None or user_input == \"\":\n",
+    "        return chat_history, \"\"\n",
+    "\n",
+    "    # # temporary\n",
+    "    # return chat_history + user_input + \"<|endoftext|>\" + user_input + \"<|endoftext|>\", \"\"\n",
+    "\n",
+    "    # encode the new user input, add the eos_token and return a tensor in Pytorch\n",
+    "    bot_input_ids = tokenizer.encode(\n",
+    "        chat_history + user_input + tokenizer.eos_token, return_tensors=\"pt\"\n",
+    "    ).to(device)\n",
+    "\n",
+    "    # generated a response while limiting the total chat history to 1000 tokens,\n",
+    "    chat_history_ids = model.generate(\n",
+    "        bot_input_ids, max_length=1024, pad_token_id=tokenizer.eos_token_id\n",
+    "    )\n",
+    "    chat_history = tokenizer.decode(chat_history_ids[0])\n",
+    "\n",
+    "    return chat_history, \"\""
+   ],
+   "execution_count": null,
+   "outputs": []
+  },
+  {
+   "cell_type": "code",
+   "metadata": {
+    "id": "tgwQH_TXckgN",
+    "colab_type": "code",
+    "colab": {}
+   },
+   "source": [
+    "app.run_server(mode='external')\n"
+   ],
+   "execution_count": null,
+   "outputs": []
+  }
+ ]
+}
