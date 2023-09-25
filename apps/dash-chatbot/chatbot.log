@@ -1,0 +1,298 @@
+2023-09-25 11:48:31,010 | INFO | Running Urban Planning
+2023-09-25 11:48:34,439 | INFO | loading configuration file https://s3.amazonaws.com/models.huggingface.co/bert/microsoft/DialoGPT-large/config.json from cache at C:\Users\deconf/.cache\torch\transformers\49c939980d916666b150aae49d822bcbef19ce70b02238a9fce61765b36e70c6.f211a345cd2a1a8fcaf0a077e45e0aefe532cdc28f3c789081cbf2b7c10e35d3
+2023-09-25 11:48:34,439 | INFO | Model config GPT2Config {
+  "activation_function": "gelu_new",
+  "architectures": [
+    "GPT2LMHeadModel"
+  ],
+  "attn_pdrop": 0.1,
+  "bos_token_id": 50256,
+  "embd_pdrop": 0.1,
+  "eos_token_id": 50256,
+  "initializer_range": 0.02,
+  "layer_norm_epsilon": 1e-05,
+  "model_type": "gpt2",
+  "n_ctx": 1024,
+  "n_embd": 1280,
+  "n_head": 20,
+  "n_layer": 36,
+  "n_positions": 1024,
+  "resid_pdrop": 0.1,
+  "summary_activation": null,
+  "summary_first_dropout": 0.1,
+  "summary_proj_to_labels": true,
+  "summary_type": "cls_index",
+  "summary_use_proj": true,
+  "task_specific_params": {
+    "conversational": {
+      "max_length": 1000
+    }
+  },
+  "vocab_size": 50257
+}
+
+2023-09-25 11:48:34,448 | INFO | Model name 'microsoft/DialoGPT-large' not found in model shortcut name list (gpt2, gpt2-medium, gpt2-large, gpt2-xl, distilgpt2). Assuming 'microsoft/DialoGPT-large' is a path, a model identifier, or url to a directory containing tokenizer files.
+2023-09-25 11:48:37,048 | INFO | loading file https://s3.amazonaws.com/models.huggingface.co/bert/microsoft/DialoGPT-large/vocab.json from cache at C:\Users\deconf/.cache\torch\transformers\8cabb31ec5669fb0a0d22561a22cd0c25bb6736a8a79f4b2e7588da2d33075f8.1512018be4ba4e8726e41b9145129dc30651ea4fec86aa61f4b9f40bf94eac71
+2023-09-25 11:48:37,048 | INFO | loading file https://s3.amazonaws.com/models.huggingface.co/bert/microsoft/DialoGPT-large/merges.txt from cache at C:\Users\deconf/.cache\torch\transformers\2b5fb08978c3c90424dc25dfd091d47798170b53a394e94f6c273d4ba7e7802e.70bec105b4158ed9a1747fea67a43f5dee97855c64d62b6ec3742f4cfdb5feda
+2023-09-25 11:48:37,048 | INFO | loading file https://s3.amazonaws.com/models.huggingface.co/bert/microsoft/DialoGPT-large/added_tokens.json from cache at None
+2023-09-25 11:48:37,049 | INFO | loading file https://s3.amazonaws.com/models.huggingface.co/bert/microsoft/DialoGPT-large/special_tokens_map.json from cache at None
+2023-09-25 11:48:37,049 | INFO | loading file https://s3.amazonaws.com/models.huggingface.co/bert/microsoft/DialoGPT-large/tokenizer_config.json from cache at None
+2023-09-25 11:48:37,650 | INFO | loading configuration file https://s3.amazonaws.com/models.huggingface.co/bert/microsoft/DialoGPT-large/config.json from cache at C:\Users\deconf/.cache\torch\transformers\49c939980d916666b150aae49d822bcbef19ce70b02238a9fce61765b36e70c6.f211a345cd2a1a8fcaf0a077e45e0aefe532cdc28f3c789081cbf2b7c10e35d3
+2023-09-25 11:48:37,650 | INFO | Model config GPT2Config {
+  "activation_function": "gelu_new",
+  "architectures": [
+    "GPT2LMHeadModel"
+  ],
+  "attn_pdrop": 0.1,
+  "bos_token_id": 50256,
+  "embd_pdrop": 0.1,
+  "eos_token_id": 50256,
+  "initializer_range": 0.02,
+  "layer_norm_epsilon": 1e-05,
+  "model_type": "gpt2",
+  "n_ctx": 1024,
+  "n_embd": 1280,
+  "n_head": 20,
+  "n_layer": 36,
+  "n_positions": 1024,
+  "resid_pdrop": 0.1,
+  "summary_activation": null,
+  "summary_first_dropout": 0.1,
+  "summary_proj_to_labels": true,
+  "summary_type": "cls_index",
+  "summary_use_proj": true,
+  "task_specific_params": {
+    "conversational": {
+      "max_length": 1000
+    }
+  },
+  "vocab_size": 50257
+}
+
+2023-09-25 11:48:37,739 | INFO | loading weights file https://cdn.huggingface.co/microsoft/DialoGPT-large/pytorch_model.bin from cache at C:\Users\deconf/.cache\torch\transformers\c962c9eaa79e28c11ad2c9a087a91285429208cc355fbbe2f8cc83d1baf35111.4fc75e508ab25494b3204bf7960757ceecf01035576af98b2f20a5d8d4fb7d1a
+2023-09-25 11:48:56,600 | INFO | Weights of GPT2LMHeadModel not initialized from pretrained model: ['transformer.h.0.attn.masked_bias', 'transformer.h.1.attn.masked_bias', 'transformer.h.2.attn.masked_bias', 'transformer.h.3.attn.masked_bias', 'transformer.h.4.attn.masked_bias', 'transformer.h.5.attn.masked_bias', 'transformer.h.6.attn.masked_bias', 'transformer.h.7.attn.masked_bias', 'transformer.h.8.attn.masked_bias', 'transformer.h.9.attn.masked_bias', 'transformer.h.10.attn.masked_bias', 'transformer.h.11.attn.masked_bias', 'transformer.h.12.attn.masked_bias', 'transformer.h.13.attn.masked_bias', 'transformer.h.14.attn.masked_bias', 'transformer.h.15.attn.masked_bias', 'transformer.h.16.attn.masked_bias', 'transformer.h.17.attn.masked_bias', 'transformer.h.18.attn.masked_bias', 'transformer.h.19.attn.masked_bias', 'transformer.h.20.attn.masked_bias', 'transformer.h.21.attn.masked_bias', 'transformer.h.22.attn.masked_bias', 'transformer.h.23.attn.masked_bias', 'transformer.h.24.attn.masked_bias', 'transformer.h.25.attn.masked_bias', 'transformer.h.26.attn.masked_bias', 'transformer.h.27.attn.masked_bias', 'transformer.h.28.attn.masked_bias', 'transformer.h.29.attn.masked_bias', 'transformer.h.30.attn.masked_bias', 'transformer.h.31.attn.masked_bias', 'transformer.h.32.attn.masked_bias', 'transformer.h.33.attn.masked_bias', 'transformer.h.34.attn.masked_bias', 'transformer.h.35.attn.masked_bias']
+2023-09-25 11:49:35,077 | ERROR | Using pad_token, but it is not set yet.
+2023-09-25 11:49:46,385 | ERROR | Using pad_token, but it is not set yet.
+2023-09-25 11:50:04,799 | INFO | Running Urban Planning
+2023-09-25 11:50:04,799 | INFO | Running Urban Planning
+2023-09-25 11:50:05,337 | INFO | loading configuration file https://s3.amazonaws.com/models.huggingface.co/bert/microsoft/DialoGPT-large/config.json from cache at C:\Users\deconf/.cache\torch\transformers\49c939980d916666b150aae49d822bcbef19ce70b02238a9fce61765b36e70c6.f211a345cd2a1a8fcaf0a077e45e0aefe532cdc28f3c789081cbf2b7c10e35d3
+2023-09-25 11:50:05,337 | INFO | loading configuration file https://s3.amazonaws.com/models.huggingface.co/bert/microsoft/DialoGPT-large/config.json from cache at C:\Users\deconf/.cache\torch\transformers\49c939980d916666b150aae49d822bcbef19ce70b02238a9fce61765b36e70c6.f211a345cd2a1a8fcaf0a077e45e0aefe532cdc28f3c789081cbf2b7c10e35d3
+2023-09-25 11:50:05,337 | INFO | Model config GPT2Config {
+  "activation_function": "gelu_new",
+  "architectures": [
+    "GPT2LMHeadModel"
+  ],
+  "attn_pdrop": 0.1,
+  "bos_token_id": 50256,
+  "embd_pdrop": 0.1,
+  "eos_token_id": 50256,
+  "initializer_range": 0.02,
+  "layer_norm_epsilon": 1e-05,
+  "model_type": "gpt2",
+  "n_ctx": 1024,
+  "n_embd": 1280,
+  "n_head": 20,
+  "n_layer": 36,
+  "n_positions": 1024,
+  "resid_pdrop": 0.1,
+  "summary_activation": null,
+  "summary_first_dropout": 0.1,
+  "summary_proj_to_labels": true,
+  "summary_type": "cls_index",
+  "summary_use_proj": true,
+  "task_specific_params": {
+    "conversational": {
+      "max_length": 1000
+    }
+  },
+  "vocab_size": 50257
+}
+
+2023-09-25 11:50:05,337 | INFO | Model config GPT2Config {
+  "activation_function": "gelu_new",
+  "architectures": [
+    "GPT2LMHeadModel"
+  ],
+  "attn_pdrop": 0.1,
+  "bos_token_id": 50256,
+  "embd_pdrop": 0.1,
+  "eos_token_id": 50256,
+  "initializer_range": 0.02,
+  "layer_norm_epsilon": 1e-05,
+  "model_type": "gpt2",
+  "n_ctx": 1024,
+  "n_embd": 1280,
+  "n_head": 20,
+  "n_layer": 36,
+  "n_positions": 1024,
+  "resid_pdrop": 0.1,
+  "summary_activation": null,
+  "summary_first_dropout": 0.1,
+  "summary_proj_to_labels": true,
+  "summary_type": "cls_index",
+  "summary_use_proj": true,
+  "task_specific_params": {
+    "conversational": {
+      "max_length": 1000
+    }
+  },
+  "vocab_size": 50257
+}
+
+2023-09-25 11:50:05,337 | INFO | Model name 'microsoft/DialoGPT-large' not found in model shortcut name list (gpt2, gpt2-medium, gpt2-large, gpt2-xl, distilgpt2). Assuming 'microsoft/DialoGPT-large' is a path, a model identifier, or url to a directory containing tokenizer files.
+2023-09-25 11:50:05,337 | INFO | Model name 'microsoft/DialoGPT-large' not found in model shortcut name list (gpt2, gpt2-medium, gpt2-large, gpt2-xl, distilgpt2). Assuming 'microsoft/DialoGPT-large' is a path, a model identifier, or url to a directory containing tokenizer files.
+2023-09-25 11:50:07,954 | INFO | loading file https://s3.amazonaws.com/models.huggingface.co/bert/microsoft/DialoGPT-large/vocab.json from cache at C:\Users\deconf/.cache\torch\transformers\8cabb31ec5669fb0a0d22561a22cd0c25bb6736a8a79f4b2e7588da2d33075f8.1512018be4ba4e8726e41b9145129dc30651ea4fec86aa61f4b9f40bf94eac71
+2023-09-25 11:50:07,954 | INFO | loading file https://s3.amazonaws.com/models.huggingface.co/bert/microsoft/DialoGPT-large/vocab.json from cache at C:\Users\deconf/.cache\torch\transformers\8cabb31ec5669fb0a0d22561a22cd0c25bb6736a8a79f4b2e7588da2d33075f8.1512018be4ba4e8726e41b9145129dc30651ea4fec86aa61f4b9f40bf94eac71
+2023-09-25 11:50:07,954 | INFO | loading file https://s3.amazonaws.com/models.huggingface.co/bert/microsoft/DialoGPT-large/merges.txt from cache at C:\Users\deconf/.cache\torch\transformers\2b5fb08978c3c90424dc25dfd091d47798170b53a394e94f6c273d4ba7e7802e.70bec105b4158ed9a1747fea67a43f5dee97855c64d62b6ec3742f4cfdb5feda
+2023-09-25 11:50:07,954 | INFO | loading file https://s3.amazonaws.com/models.huggingface.co/bert/microsoft/DialoGPT-large/merges.txt from cache at C:\Users\deconf/.cache\torch\transformers\2b5fb08978c3c90424dc25dfd091d47798170b53a394e94f6c273d4ba7e7802e.70bec105b4158ed9a1747fea67a43f5dee97855c64d62b6ec3742f4cfdb5feda
+2023-09-25 11:50:07,954 | INFO | loading file https://s3.amazonaws.com/models.huggingface.co/bert/microsoft/DialoGPT-large/added_tokens.json from cache at None
+2023-09-25 11:50:07,954 | INFO | loading file https://s3.amazonaws.com/models.huggingface.co/bert/microsoft/DialoGPT-large/added_tokens.json from cache at None
+2023-09-25 11:50:07,954 | INFO | loading file https://s3.amazonaws.com/models.huggingface.co/bert/microsoft/DialoGPT-large/special_tokens_map.json from cache at None
+2023-09-25 11:50:07,954 | INFO | loading file https://s3.amazonaws.com/models.huggingface.co/bert/microsoft/DialoGPT-large/special_tokens_map.json from cache at None
+2023-09-25 11:50:07,954 | INFO | loading file https://s3.amazonaws.com/models.huggingface.co/bert/microsoft/DialoGPT-large/tokenizer_config.json from cache at None
+2023-09-25 11:50:07,954 | INFO | loading file https://s3.amazonaws.com/models.huggingface.co/bert/microsoft/DialoGPT-large/tokenizer_config.json from cache at None
+2023-09-25 11:50:08,576 | INFO | loading configuration file https://s3.amazonaws.com/models.huggingface.co/bert/microsoft/DialoGPT-large/config.json from cache at C:\Users\deconf/.cache\torch\transformers\49c939980d916666b150aae49d822bcbef19ce70b02238a9fce61765b36e70c6.f211a345cd2a1a8fcaf0a077e45e0aefe532cdc28f3c789081cbf2b7c10e35d3
+2023-09-25 11:50:08,576 | INFO | loading configuration file https://s3.amazonaws.com/models.huggingface.co/bert/microsoft/DialoGPT-large/config.json from cache at C:\Users\deconf/.cache\torch\transformers\49c939980d916666b150aae49d822bcbef19ce70b02238a9fce61765b36e70c6.f211a345cd2a1a8fcaf0a077e45e0aefe532cdc28f3c789081cbf2b7c10e35d3
+2023-09-25 11:50:08,576 | INFO | Model config GPT2Config {
+  "activation_function": "gelu_new",
+  "architectures": [
+    "GPT2LMHeadModel"
+  ],
+  "attn_pdrop": 0.1,
+  "bos_token_id": 50256,
+  "embd_pdrop": 0.1,
+  "eos_token_id": 50256,
+  "initializer_range": 0.02,
+  "layer_norm_epsilon": 1e-05,
+  "model_type": "gpt2",
+  "n_ctx": 1024,
+  "n_embd": 1280,
+  "n_head": 20,
+  "n_layer": 36,
+  "n_positions": 1024,
+  "resid_pdrop": 0.1,
+  "summary_activation": null,
+  "summary_first_dropout": 0.1,
+  "summary_proj_to_labels": true,
+  "summary_type": "cls_index",
+  "summary_use_proj": true,
+  "task_specific_params": {
+    "conversational": {
+      "max_length": 1000
+    }
+  },
+  "vocab_size": 50257
+}
+
+2023-09-25 11:50:08,576 | INFO | Model config GPT2Config {
+  "activation_function": "gelu_new",
+  "architectures": [
+    "GPT2LMHeadModel"
+  ],
+  "attn_pdrop": 0.1,
+  "bos_token_id": 50256,
+  "embd_pdrop": 0.1,
+  "eos_token_id": 50256,
+  "initializer_range": 0.02,
+  "layer_norm_epsilon": 1e-05,
+  "model_type": "gpt2",
+  "n_ctx": 1024,
+  "n_embd": 1280,
+  "n_head": 20,
+  "n_layer": 36,
+  "n_positions": 1024,
+  "resid_pdrop": 0.1,
+  "summary_activation": null,
+  "summary_first_dropout": 0.1,
+  "summary_proj_to_labels": true,
+  "summary_type": "cls_index",
+  "summary_use_proj": true,
+  "task_specific_params": {
+    "conversational": {
+      "max_length": 1000
+    }
+  },
+  "vocab_size": 50257
+}
+
+2023-09-25 11:50:08,643 | INFO | loading weights file https://cdn.huggingface.co/microsoft/DialoGPT-large/pytorch_model.bin from cache at C:\Users\deconf/.cache\torch\transformers\c962c9eaa79e28c11ad2c9a087a91285429208cc355fbbe2f8cc83d1baf35111.4fc75e508ab25494b3204bf7960757ceecf01035576af98b2f20a5d8d4fb7d1a
+2023-09-25 11:50:08,643 | INFO | loading weights file https://cdn.huggingface.co/microsoft/DialoGPT-large/pytorch_model.bin from cache at C:\Users\deconf/.cache\torch\transformers\c962c9eaa79e28c11ad2c9a087a91285429208cc355fbbe2f8cc83d1baf35111.4fc75e508ab25494b3204bf7960757ceecf01035576af98b2f20a5d8d4fb7d1a
+2023-09-25 11:50:27,973 | INFO | Weights of GPT2LMHeadModel not initialized from pretrained model: ['transformer.h.0.attn.masked_bias', 'transformer.h.1.attn.masked_bias', 'transformer.h.2.attn.masked_bias', 'transformer.h.3.attn.masked_bias', 'transformer.h.4.attn.masked_bias', 'transformer.h.5.attn.masked_bias', 'transformer.h.6.attn.masked_bias', 'transformer.h.7.attn.masked_bias', 'transformer.h.8.attn.masked_bias', 'transformer.h.9.attn.masked_bias', 'transformer.h.10.attn.masked_bias', 'transformer.h.11.attn.masked_bias', 'transformer.h.12.attn.masked_bias', 'transformer.h.13.attn.masked_bias', 'transformer.h.14.attn.masked_bias', 'transformer.h.15.attn.masked_bias', 'transformer.h.16.attn.masked_bias', 'transformer.h.17.attn.masked_bias', 'transformer.h.18.attn.masked_bias', 'transformer.h.19.attn.masked_bias', 'transformer.h.20.attn.masked_bias', 'transformer.h.21.attn.masked_bias', 'transformer.h.22.attn.masked_bias', 'transformer.h.23.attn.masked_bias', 'transformer.h.24.attn.masked_bias', 'transformer.h.25.attn.masked_bias', 'transformer.h.26.attn.masked_bias', 'transformer.h.27.attn.masked_bias', 'transformer.h.28.attn.masked_bias', 'transformer.h.29.attn.masked_bias', 'transformer.h.30.attn.masked_bias', 'transformer.h.31.attn.masked_bias', 'transformer.h.32.attn.masked_bias', 'transformer.h.33.attn.masked_bias', 'transformer.h.34.attn.masked_bias', 'transformer.h.35.attn.masked_bias']
+2023-09-25 11:50:27,973 | INFO | Weights of GPT2LMHeadModel not initialized from pretrained model: ['transformer.h.0.attn.masked_bias', 'transformer.h.1.attn.masked_bias', 'transformer.h.2.attn.masked_bias', 'transformer.h.3.attn.masked_bias', 'transformer.h.4.attn.masked_bias', 'transformer.h.5.attn.masked_bias', 'transformer.h.6.attn.masked_bias', 'transformer.h.7.attn.masked_bias', 'transformer.h.8.attn.masked_bias', 'transformer.h.9.attn.masked_bias', 'transformer.h.10.attn.masked_bias', 'transformer.h.11.attn.masked_bias', 'transformer.h.12.attn.masked_bias', 'transformer.h.13.attn.masked_bias', 'transformer.h.14.attn.masked_bias', 'transformer.h.15.attn.masked_bias', 'transformer.h.16.attn.masked_bias', 'transformer.h.17.attn.masked_bias', 'transformer.h.18.attn.masked_bias', 'transformer.h.19.attn.masked_bias', 'transformer.h.20.attn.masked_bias', 'transformer.h.21.attn.masked_bias', 'transformer.h.22.attn.masked_bias', 'transformer.h.23.attn.masked_bias', 'transformer.h.24.attn.masked_bias', 'transformer.h.25.attn.masked_bias', 'transformer.h.26.attn.masked_bias', 'transformer.h.27.attn.masked_bias', 'transformer.h.28.attn.masked_bias', 'transformer.h.29.attn.masked_bias', 'transformer.h.30.attn.masked_bias', 'transformer.h.31.attn.masked_bias', 'transformer.h.32.attn.masked_bias', 'transformer.h.33.attn.masked_bias', 'transformer.h.34.attn.masked_bias', 'transformer.h.35.attn.masked_bias']
+2023-09-25 11:50:44,900 | ERROR | Using pad_token, but it is not set yet.
+2023-09-25 11:50:44,900 | ERROR | Using pad_token, but it is not set yet.
+2023-09-25 11:51:02,309 | ERROR | Using pad_token, but it is not set yet.
+2023-09-25 11:51:02,309 | ERROR | Using pad_token, but it is not set yet.
+2023-09-25 11:51:40,152 | INFO | Running Urban Planning
+2023-09-25 11:51:40,703 | INFO | loading configuration file https://s3.amazonaws.com/models.huggingface.co/bert/microsoft/DialoGPT-large/config.json from cache at C:\Users\deconf/.cache\torch\transformers\49c939980d916666b150aae49d822bcbef19ce70b02238a9fce61765b36e70c6.f211a345cd2a1a8fcaf0a077e45e0aefe532cdc28f3c789081cbf2b7c10e35d3
+2023-09-25 11:51:40,704 | INFO | Model config GPT2Config {
+  "activation_function": "gelu_new",
+  "architectures": [
+    "GPT2LMHeadModel"
+  ],
+  "attn_pdrop": 0.1,
+  "bos_token_id": 50256,
+  "embd_pdrop": 0.1,
+  "eos_token_id": 50256,
+  "initializer_range": 0.02,
+  "layer_norm_epsilon": 1e-05,
+  "model_type": "gpt2",
+  "n_ctx": 1024,
+  "n_embd": 1280,
+  "n_head": 20,
+  "n_layer": 36,
+  "n_positions": 1024,
+  "resid_pdrop": 0.1,
+  "summary_activation": null,
+  "summary_first_dropout": 0.1,
+  "summary_proj_to_labels": true,
+  "summary_type": "cls_index",
+  "summary_use_proj": true,
+  "task_specific_params": {
+    "conversational": {
+      "max_length": 1000
+    }
+  },
+  "vocab_size": 50257
+}
+
+2023-09-25 11:51:40,704 | INFO | Model name 'microsoft/DialoGPT-large' not found in model shortcut name list (gpt2, gpt2-medium, gpt2-large, gpt2-xl, distilgpt2). Assuming 'microsoft/DialoGPT-large' is a path, a model identifier, or url to a directory containing tokenizer files.
+2023-09-25 11:51:43,113 | INFO | loading file https://s3.amazonaws.com/models.huggingface.co/bert/microsoft/DialoGPT-large/vocab.json from cache at C:\Users\deconf/.cache\torch\transformers\8cabb31ec5669fb0a0d22561a22cd0c25bb6736a8a79f4b2e7588da2d33075f8.1512018be4ba4e8726e41b9145129dc30651ea4fec86aa61f4b9f40bf94eac71
+2023-09-25 11:51:43,113 | INFO | loading file https://s3.amazonaws.com/models.huggingface.co/bert/microsoft/DialoGPT-large/merges.txt from cache at C:\Users\deconf/.cache\torch\transformers\2b5fb08978c3c90424dc25dfd091d47798170b53a394e94f6c273d4ba7e7802e.70bec105b4158ed9a1747fea67a43f5dee97855c64d62b6ec3742f4cfdb5feda
+2023-09-25 11:51:43,113 | INFO | loading file https://s3.amazonaws.com/models.huggingface.co/bert/microsoft/DialoGPT-large/added_tokens.json from cache at None
+2023-09-25 11:51:43,113 | INFO | loading file https://s3.amazonaws.com/models.huggingface.co/bert/microsoft/DialoGPT-large/special_tokens_map.json from cache at None
+2023-09-25 11:51:43,113 | INFO | loading file https://s3.amazonaws.com/models.huggingface.co/bert/microsoft/DialoGPT-large/tokenizer_config.json from cache at None
+2023-09-25 11:51:43,744 | INFO | loading configuration file https://s3.amazonaws.com/models.huggingface.co/bert/microsoft/DialoGPT-large/config.json from cache at C:\Users\deconf/.cache\torch\transformers\49c939980d916666b150aae49d822bcbef19ce70b02238a9fce61765b36e70c6.f211a345cd2a1a8fcaf0a077e45e0aefe532cdc28f3c789081cbf2b7c10e35d3
+2023-09-25 11:51:43,745 | INFO | Model config GPT2Config {
+  "activation_function": "gelu_new",
+  "architectures": [
+    "GPT2LMHeadModel"
+  ],
+  "attn_pdrop": 0.1,
+  "bos_token_id": 50256,
+  "embd_pdrop": 0.1,
+  "eos_token_id": 50256,
+  "initializer_range": 0.02,
+  "layer_norm_epsilon": 1e-05,
+  "model_type": "gpt2",
+  "n_ctx": 1024,
+  "n_embd": 1280,
+  "n_head": 20,
+  "n_layer": 36,
+  "n_positions": 1024,
+  "resid_pdrop": 0.1,
+  "summary_activation": null,
+  "summary_first_dropout": 0.1,
+  "summary_proj_to_labels": true,
+  "summary_type": "cls_index",
+  "summary_use_proj": true,
+  "task_specific_params": {
+    "conversational": {
+      "max_length": 1000
+    }
+  },
+  "vocab_size": 50257
+}
+
+2023-09-25 11:51:43,812 | INFO | loading weights file https://cdn.huggingface.co/microsoft/DialoGPT-large/pytorch_model.bin from cache at C:\Users\deconf/.cache\torch\transformers\c962c9eaa79e28c11ad2c9a087a91285429208cc355fbbe2f8cc83d1baf35111.4fc75e508ab25494b3204bf7960757ceecf01035576af98b2f20a5d8d4fb7d1a
+2023-09-25 11:52:04,524 | INFO | Weights of GPT2LMHeadModel not initialized from pretrained model: ['transformer.h.0.attn.masked_bias', 'transformer.h.1.attn.masked_bias', 'transformer.h.2.attn.masked_bias', 'transformer.h.3.attn.masked_bias', 'transformer.h.4.attn.masked_bias', 'transformer.h.5.attn.masked_bias', 'transformer.h.6.attn.masked_bias', 'transformer.h.7.attn.masked_bias', 'transformer.h.8.attn.masked_bias', 'transformer.h.9.attn.masked_bias', 'transformer.h.10.attn.masked_bias', 'transformer.h.11.attn.masked_bias', 'transformer.h.12.attn.masked_bias', 'transformer.h.13.attn.masked_bias', 'transformer.h.14.attn.masked_bias', 'transformer.h.15.attn.masked_bias', 'transformer.h.16.attn.masked_bias', 'transformer.h.17.attn.masked_bias', 'transformer.h.18.attn.masked_bias', 'transformer.h.19.attn.masked_bias', 'transformer.h.20.attn.masked_bias', 'transformer.h.21.attn.masked_bias', 'transformer.h.22.attn.masked_bias', 'transformer.h.23.attn.masked_bias', 'transformer.h.24.attn.masked_bias', 'transformer.h.25.attn.masked_bias', 'transformer.h.26.attn.masked_bias', 'transformer.h.27.attn.masked_bias', 'transformer.h.28.attn.masked_bias', 'transformer.h.29.attn.masked_bias', 'transformer.h.30.attn.masked_bias', 'transformer.h.31.attn.masked_bias', 'transformer.h.32.attn.masked_bias', 'transformer.h.33.attn.masked_bias', 'transformer.h.34.attn.masked_bias', 'transformer.h.35.attn.masked_bias']
