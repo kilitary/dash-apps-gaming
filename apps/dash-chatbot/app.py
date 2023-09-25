@@ -1,10 +1,12 @@
+import sys
 import time
 
 import dash_html_components as html
 import dash_core_components as dcc
 import dash_bootstrap_components as dbc
+import dash
 from dash.dependencies import Input, Output, State
-from transformers import AutoModelWithLMHead, AutoTokenizer
+from transformers import AutoModelWithLMHead, AutoTokenizer, GPT2Tokenizer
 import torch
 
 # device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -14,20 +16,21 @@ print(f"Device: {device}")
 name = "microsoft/DialoGPT-medium"
 name = 'https://huggingface.co/microsoft/phi-1_5'
 name = "https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/raw/main/tokenizer_2/tokenizer_config.json"
+name = "openai-gpt"
 print(f"loading tokenizer [{name}] ...")
 # tokenizer = AutoTokenizer.from_pretrained(
 #   name,
 #   cache_dir="cached",
 #   force_download=True
 # )
-tokenizer = AutoTokenizer.from_pretrained(
+tokenizer = GPT2Tokenizer.from_pretrained(
   name,
   trust_remote_code=True,
   resume_download=True
 )
 
-print("loading  model ...")
-model = AutoModelForCausalLM.from_pretrained(name)
+print("loading model ...")
+model = AutoModelWithLMHead.from_pretrained(name)
 
 # Switch to cuda, eval mode, and FP16 for faster inference
 if device == "cuda":
@@ -35,7 +38,7 @@ if device == "cuda":
 model.to(device)
 model.eval()
 
-print("model Done.", model)
+print("model done.")
 
 
 def textbox(text, box="other"):
@@ -81,7 +84,7 @@ controls = dbc.InputGroup(
   style={"width": "80%", "max-width": "800px", "margin": "auto"},
   children=[
     dbc.Input(id="user-input", placeholder="Write to the chatbot...", type="text"),
-    dbc.InputGroupAddon(dbc.Button("Submit", id="submit"), addon_type="append", ),
+    dbc.InputGroupAddon(dbc.Button("Submit", id="submit", n_clicks=1), addon_type="append", ),
   ],
 )
 
@@ -123,26 +126,40 @@ def run_chatbot(n_clicks, n_submit, user_input, chat_history):
     if n_clicks == 0:
         return "", ""
 
-    if user_input is None or user_input == "":
+    print(f'n_submit: {n_submit} n_clicks: {n_clicks} user_input: {user_input} chat_history: {chat_history}')
+
+    if user_input is None or chat_history is None:
         return chat_history, ""
 
+    print(f'tokenizer.eos_token: {tokenizer.eos_token} tokenizer.eos_token_id: {tokenizer.eos_token_id}')
     # # temporary
     # return chat_history + user_input + "<|endoftext|>" + user_input + "<|endoftext|>", ""
 
-    # encode the new user input, add the eos_token and return a tensor in Pytorch
-    bot_input_ids = tokenizer.encode(
-      chat_history + user_input + tokenizer.eos_token, return_tensors="pt"
-    ).to(device)
+    try:
+        # encode the new user input, add the eos_token and return a tensor in Pytorch
+        bot_input_ids = tokenizer.encode(
+          chat_history + user_input + tokenizer.eos_token,
+          return_tensors="pt"
+        ).to(device)
 
-    # generated a response while limiting the total chat history to 1000 tokens,
-    chat_history_ids = model.generate(
-      bot_input_ids, max_length=1024, pad_token_id=tokenizer.eos_token_id
-    )
+        print(f'bot_input_ids: {bot_input_ids}')
+
+        # generated a response while limiting the total chat history to 1000 tokens,
+        chat_history_ids = model.generate(
+          bot_input_ids,
+          max_length=1024,
+          pad_token_id=0  # tokenizer.eos_token_id
+        )
+    except Exception as e:
+        import traceback
+        print(f'EXCEPTION: {e}')
+        traceback.print_exc()
+
     chat_history = tokenizer.decode(chat_history_ids[0])
 
     return chat_history, ""
 
 
 if __name__ == "__main__":
-    print("Start model ...")
+    print(f"Started model {name}.")
     app.run_server(debug=True)
